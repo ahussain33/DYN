@@ -10,39 +10,13 @@
     <div id="container" style="width: 800px; height: 600px; background: white"></div>
     <script>
       // Create a graphology graph
- graph.addEdge("John", "Mary", { type: "line", label: "works with", size: 5 });
-  graph.addEdge("Mary", "Suzan", { type: "line", label: "works with", size: 5 });
-  graph.addEdge("Mary", "Nantes", { type: "arrow", label: "lives in", size: 5 });
-  graph.addEdge("John", "New-York", { type: "arrow", label: "lives in", size: 5 });
-  graph.addEdge("Suzan", "New-York", { type: "arrow", label: "lives in", size: 5 });
-  graph.addEdge("John", "Falafels", { type: "arrow", label: "eats", size: 5 });
-  graph.addEdge("Mary", "Sushis", { type: "arrow", label: "eats", size: 5 });
-  graph.addEdge("Suzan", "Kouign Amann", { type: "arrow", label: "eats", size: 5 });
+      const graph = new graphology.Graph();
+      graph.addNode("1", { label: "Node 1", x: 0, y: 0, size: 10, color: "blue" });
+      graph.addNode("2", { label: "Node 2", x: 1, y: 1, size: 20, color: "red" });
+      graph.addEdge("1", "2", { size: 5, color: "purple" });
 
-  graph.nodes().forEach((node, i) => {
-    const angle = (i * 2 * Math.PI) / graph.order;
-    graph.setNodeAttribute(node, "x", 100 * Math.cos(angle));
-    graph.setNodeAttribute(node, "y", 100 * Math.sin(angle));
-  });
-
-  const renderer = new Sigma(graph, container, {
-    // We don't have to declare edgeProgramClasses here, because we only use the default ones ("line" and "arrow")
-    nodeProgramClasses: {
-      image: createNodeImageProgram(),
-      gradient: NodeGradientProgram,
-    },
-    renderEdgeLabels: true,
-  });
-
-  // Create the spring layout and start it
-  const layout = new ForceSupervisor(graph);
-  layout.start();
-
-  onStoryDown(() => {
-    layout.kill();
-    renderer.kill();
-  });
-};
+      // Instantiate sigma.js and render the graph
+      const sigmaInstance = new Sigma(graph, document.getElementById("container"));
     </script>
   </body>
 </html>
